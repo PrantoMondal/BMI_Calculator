@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     android.widget.Button mcalculateBMI;
@@ -90,13 +91,79 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        mincrementage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intage = intage+1;
+                age2 = String.valueOf(intage);
+                mcurrentage.setText(age2);
+            }
+        });
+
+        mincrementweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intweight = intweight+1;
+                weight2 = String.valueOf(intweight);
+                mcurrentweight.setText(weight2);
+            }
+        });
+
+        mdecrementage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intage = intage-1;
+                age2 = String.valueOf(intage);
+                mcurrentage.setText(age2);
+            }
+        });
+
+        mdecrementweight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intweight = intweight-1;
+                weight2 = String.valueOf(intweight);
+                mcurrentweight.setText(weight2);
+            }
+        });
+
+
 
         mcalculateBMI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,bmiactivity.class);
-                startActivity(intent);
+
+                if(typeofuser.equals("0")){
+                    Toast.makeText(getApplicationContext(),"Select your Gender",Toast.LENGTH_SHORT).show();
+                }
+                else if(mintprogress.equals("0")){
+                    Toast.makeText(getApplicationContext(),"Select your Height",Toast.LENGTH_SHORT).show();
+                }
+                else if(intage ==0 || intage<0){
+                    Toast.makeText(getApplicationContext(),"Incorrect Age",Toast.LENGTH_SHORT).show();
+                }
+                else if(intweight==0 || intweight<0){
+                    Toast.makeText(getApplicationContext(),"Incorrect Weight",Toast.LENGTH_SHORT).show();
+                }
+
+                else{
+                    Intent intent = new Intent(MainActivity.this,bmiactivity.class);
+                    intent.putExtra("gender",typeofuser);
+                    intent.putExtra("height",mintprogress);
+                    intent.putExtra("weight",weight2);
+                    intent.putExtra("age",age2);
+
+
+                    startActivity(intent);
+                }
+
+
+
             }
         });
+
+
+
+
     }
 }
